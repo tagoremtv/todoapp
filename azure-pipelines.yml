@@ -25,8 +25,8 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Your-Azure-Subscription'
-    appName: 'Your-Azure-App-Service-Name'
+    azureSubscription: 'totask con'
+    appName: 'totask'
     package: $(System.DefaultWorkingDirectory)/path/to/your/package.zip  # Path to your app package
 
 - script: |
