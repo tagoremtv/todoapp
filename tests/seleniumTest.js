@@ -7,7 +7,7 @@ const MochaHtmlReporter = require('mocha-html-reporter');
 
 // Initialize Chrome Driver
 let driver;
-const appUrl = 'https://your-app-service-url.com'; // Replace with your actual Azure App Service URL
+const appUrl = 'https://totask-f8aecxc3d0ghcyhm.southindia-01.azurewebsites.net/'; // Replace with your actual Azure App Service URL
 
 // Test Suite
 describe('To-Do List App Selenium Tests', function () {
