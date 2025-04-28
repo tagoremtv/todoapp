@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+      - main  # Or the branch you want the pipeline to trigger on
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseNode@2
+  inputs:
+    versionSpec: '14.x'
+    addToPath: true
+
+- checkout: self  # Checks out your GitHub repository
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+
+- script: |
+    npm install
+    npm run build  # If your app requires a build step
+  displayName: 'Install dependencies and build'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Your-Azure-Subscription'
+    appName: 'Your-Azure-App-Service-Name'
+    package: $(System.DefaultWorkingDirectory)/path/to/your/package.zip  # Path to your app package
+
+- script: |
+    npm install selenium-webdriver mocha chai mocha-html-reporter chromedriver
+  displayName: 'Install Test Dependencies'
+
+- script: |
+    npm run test  # This runs the Mocha tests and generates the HTML report
+  displayName: 'Run Selenium Tests'
+
+- publish: $(System.DefaultWorkingDirectory)/path/to/report.html
+  artifact: test-report  # Path to the generated report
+  displayName: 'Publish Test Report'
